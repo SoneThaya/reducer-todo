@@ -4,7 +4,7 @@ const TodoForm = () => {
   const { state, dispatch } = props;
 
   const onSubmit = e => {
-    dispatch({ type: "ADD_TODO", payload: })
+    dispatch({ type: "ADD_TODO", payload: task})
   }
   
 

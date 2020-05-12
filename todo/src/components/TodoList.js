@@ -12,12 +12,36 @@ export const TodoList = () => {
     setNewTodo(e.target.value)
   }
 
+  const onSubmit = e => {
+    e.preventDefault()
+    dispatch({
+      type: 'ADD_TODO',
+      payload: newTodo
+    })
+  }
+
+  const toggleComplete = e => {
+    e.preventDefault()
+    dispatch({
+      type: 'TOGGLE_COMPLETE',
+      payload: e.target.id
+    })
+  }
+
+  const clearTodo = e => {
+    e.preventDefault()
+    dispatch({
+      type: "CLEAR_COMPLETED",
+      payload: e.target.id
+    })
+  }
+
   console.log(newTodo)
 
     return (
     <div>
       
-      <form>
+      <form >
       <input
         type="text"
         name="newTodo"
@@ -27,28 +51,29 @@ export const TodoList = () => {
           />
           
       <button
-      onClick={() => {
-              dispatch({
-                type: 'ADD_TODO',
-                payload: newTodo
-              })
-      }}
+      onClick={onSubmit}
       className="add-btn"
     >
-      Add Todo</button>
+            Add Todo</button>
+          
+            <button
+            onClick={clearTodo}
+            className="add-btn"
+          >
+            Clear Todo</button>
     
     </form>
-      <h2>hello from todo list</h2>
-        <p>{state.item} hello</p>
+     
+      
       {state.todoData.map(item => (
-        <div key={item.id}>
-        <p
+        <div >
+          <p
+          key={item.id}
           style={{ textDecoration: item.completed ? "line-through" : "none" }}
-          onClick={() =>
-            dispatch({type: 'TOGGLE_COMPLETE', payload: !item.completed})}
+          onClick={toggleComplete}
           >{item.item}</p>
-          <p>Id: {item.id}</p>
-          <p>Completed: {item.completed}</p>
+         
+        
         </div>
       ))}
        

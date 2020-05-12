@@ -10,24 +10,39 @@ export const TodoReducer = (state, action) => {
       }
       return {
         ...state,
-        newTodo
+        todoData: [
+          ...state.todoData,
+          newTodo
+        ]
+        
       }
     case "TOGGLE_COMPLETE":
-      const newTodos = state.todoData.map(item => {
+      const comp = state.todoData.map(item => {
+        
         if (item.id === action.payload) {
-          item.completed = !item.completed
+          return {
+            ...item,
+            completed: !item.completed
+          }
+        } else {
           return item
-        } return item
+        }
       })
       return {
         ...state,
-        newTodos
-      };
+        todoData: [
+          ...state.todoData,
+          comp
+        ]
+      }
     case "CLEAR_COMPLETED":
       const uncompletedTodos = state.todoData.filter(todo => todo.completed === false)
       return {
         ...state,
-        todoData: uncompletedTodos
+        todoData: [
+          ...state.todoData,
+          uncompletedTodos
+        ]
       }
     default:
       return state
