@@ -1,30 +1,57 @@
-import React, { useReducer } from 'react';
+import React, { useReducer, useState } from 'react';
 import { TodoReducer, initialState } from '../reducers/reducer'
+import Todo from './Todo'
 
-const TodoList = () => {
+export const TodoList = () => {
   const [state, dispatch] = useReducer(TodoReducer, initialState)
-  console.log(state)
-  return (
+  console.log(state.todoItems)
+  const [newTodo, setNewTodo] = useState('')
+  
+
+  const handleChanges = e => {
+    setNewTodo(e.target.value)
+  }
+
+  console.log(newTodo)
+
+    return (
     <div>
+      
+      <form>
+      <input
+        type="text"
+        name="newTodo"
+        value={newTodo}
+        placeholder="Enter new task"
+        onChange={handleChanges}
+          />
+          
+      <button
+      onClick={() => {
+        dispatch({ type: 'ADD_TODO', payload: newTodo })
+      }}
+      className="add-btn"
+    >
+      Add Todo</button>
+    
+    </form>
       <h2>hello from todo list</h2>
-      
-        <div>
+
+      {state.todoItems.map(item => (
+        <div key={item.id}>
         <p
-          style={{ textDecoration: state.completed ? "line-through" : "none" }}
+          style={{ textDecoration: item.completed ? "line-through" : "none" }}
           onClick={() =>
-            dispatch({type: 'TOGGLE_COMPLETE', payload: !state.completed})}
-          key={state.id}>{state.item}</p>
-          <p>Id: {state.id}</p>
-          <p>Completed: {state.completed}</p>
+            dispatch({type: 'TOGGLE_COMPLETE', payload: !item.completed})}
+          >{item.item}</p>
+          <p>Id: {item.id}</p>
+          <p>Completed: {item.completed}</p>
         </div>
+      ))}
        
-      
-
-      
     </div>
-   
-
   )
+  
 }
 
-export default TodoList;
+export default TodoList

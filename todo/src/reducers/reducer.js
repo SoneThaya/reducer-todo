@@ -1,14 +1,24 @@
 
 
-export const TodoReducer = (state, action) => {
+export const TodoReducer = (state = [initialState], action) => {
   switch (action.type) {
     case "ADD_TODO":
+      
+      const newItem = {
+        item: state.item,
+        completed: false,
+        id: new Date().getUTCMilliseconds()
+      }
+      
       return {
         ...state,
-        item: action.payload,
-        completed: false,
-        id: new Date(),
-      };
+        todoItems: {
+
+          item: action.payload,
+          completed: false,
+          id: new Date().getUTCMilliseconds(),
+        }
+    }
     case "TOGGLE_COMPLETE":
       return {
         ...state,
@@ -20,7 +30,15 @@ export const TodoReducer = (state, action) => {
 }
 
 export const initialState = {
-  item: 'Learn about reducers',
-  completed: true,
-  id: 3892987589
-}
+  todoItems: [
+  {
+    item: 'Learn about reducers',
+    completed: true,
+    id: 3892987589
+    },
+    {
+      item: 'Doing redux todo list',
+      completed: false,
+      id: 3892987590
+    },
+]}

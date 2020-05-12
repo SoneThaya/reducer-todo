@@ -8,12 +8,13 @@ const Todo = (props) => {
   return (
     <div>
       <p
-        style={{textDecoration: props.completed ? "line-through" : "none"}}
-        onClick={() => props.toggleCompleted(props.item.id)}
-        key={props.id}
-      >
-        {props.todoData}
+        style={{ textDecoration: state.completed ? "line-through" : "none" }}
+        onClick={() =>
+          dispatch({type: 'TOGGLE_COMPLETE', payload: !state.completed})}
+        key={state.id}>
+        {state.item}
       </p>
+      <p>{state.id}</p>
       
     </div>
   )
