@@ -1,44 +1,53 @@
 
-
-export const TodoReducer = (state = [initialState], action) => {
+export const TodoReducer = (state, action) => {
+ console.log(state)
   switch (action.type) {
     case "ADD_TODO":
-      
-      const newItem = {
-        item: state.item,
+      const newTodo = {
+        item: action.payload,
+        id: Date.now(),
         completed: false,
-        id: new Date().getUTCMilliseconds()
       }
-      
       return {
         ...state,
-        todoItems: {
-
-          item: action.payload,
-          completed: false,
-          id: new Date().getUTCMilliseconds(),
-        }
-    }
+        newTodo
+      }
     case "TOGGLE_COMPLETE":
+      const newTodos = state.todoData.map(item => {
+        if (item.id === action.payload) {
+          item.completed = !item.completed
+          return item
+        } return item
+      })
       return {
         ...state,
-        completed: !state.completed,
+        newTodos
       };
+    case "CLEAR_COMPLETED":
+      const uncompletedTodos = state.todoData.filter(todo => todo.completed === false)
+      return {
+        ...state,
+        todoData: uncompletedTodos
+      }
     default:
       return state
   }
 }
 
 export const initialState = {
-  todoItems: [
-  {
-    item: 'Learn about reducers',
-    completed: true,
-    id: 3892987589
-    },
-    {
-      item: 'Doing redux todo list',
-      completed: false,
-      id: 3892987590
-    },
-]}
+  todoData: 
+    [
+      {
+        item: 'Learn about reducers',
+        completed: true,
+        id: 3892987589
+        },
+        {
+          item: 'Doing redux todo list',
+          completed: false,
+          id: 3892987590
+        },
+    ]
+  
+}
+  

@@ -1,20 +1,22 @@
-import React, { useReducer } from 'react';
-import { TodoReducer, initialState } from '../reducers/reducer'
+import React from 'react';
+import './Todo.css'
 
-const Todo = (props) => {
-  const [state, dispatch] = useReducer(TodoReducer, initialState)
-  console.log(state)
+const Todo = props => {
+  const { state, dispatch } = props;
+
+  const onClick = e => {
+    dispatch({type: "ADD_TODO"})
+  }
   
   return (
     <div>
       <p
-        style={{ textDecoration: state.completed ? "line-through" : "none" }}
-        onClick={() =>
-          dispatch({type: 'TOGGLE_COMPLETE', payload: !state.completed})}
-        key={state.id}>
-        {state.item}
+        style={{textDecoration: props.completed ? "line-through" : "none"}}
+        onClick={() => props.toggleCompleted(props.item.id)}
+        key={props.id}
+      >
+        {props.todoData}
       </p>
-      <p>{state.id}</p>
       
     </div>
   )

@@ -1,10 +1,10 @@
 import React, { useReducer, useState } from 'react';
 import { TodoReducer, initialState } from '../reducers/reducer'
-import Todo from './Todo'
+
 
 export const TodoList = () => {
   const [state, dispatch] = useReducer(TodoReducer, initialState)
-  console.log(state.todoItems)
+  console.log(state)
   const [newTodo, setNewTodo] = useState('')
   
 
@@ -28,7 +28,10 @@ export const TodoList = () => {
           
       <button
       onClick={() => {
-        dispatch({ type: 'ADD_TODO', payload: newTodo })
+              dispatch({
+                type: 'ADD_TODO',
+                payload: newTodo
+              })
       }}
       className="add-btn"
     >
@@ -36,8 +39,8 @@ export const TodoList = () => {
     
     </form>
       <h2>hello from todo list</h2>
-
-      {state.todoItems.map(item => (
+        <p>{state.item} hello</p>
+      {state.todoData.map(item => (
         <div key={item.id}>
         <p
           style={{ textDecoration: item.completed ? "line-through" : "none" }}
