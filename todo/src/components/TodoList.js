@@ -20,19 +20,12 @@ export const TodoList = () => {
     })
   }
 
-  const toggleComplete = e => {
-    e.preventDefault()
-    dispatch({
-      type: 'TOGGLE_COMPLETE',
-      payload: e.target.id
-    })
-  }
 
   const clearTodo = e => {
     e.preventDefault()
     dispatch({
       type: "CLEAR_COMPLETED",
-      payload: e.target.id
+      
     })
   }
 
@@ -68,9 +61,9 @@ export const TodoList = () => {
       {state.todoData.map(item => (
         <div >
           <p
-          key={item.id}
-          style={{ textDecoration: item.completed ? "line-through" : "none" }}
-          onClick={toggleComplete}
+            key={item.id}
+            style={{ textDecoration: item.completed ? "line-through" : "none" }}
+            onClick={() => dispatch({type: "TOGGLE_COMPLETED", payload: item.id})}
           >{item.item}</p>
          
         
